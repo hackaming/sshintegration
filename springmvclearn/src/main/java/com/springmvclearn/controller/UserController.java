@@ -59,18 +59,13 @@ public class UserController {
 		if (um.loginUser(user)) {
 			System.out.println("Login success!");
 			logger.debug("Login success!");
-			return "/views/crowdhome/crowdhome";
+			return "loginsuccess";
 		} else {
 			System.out.println("Login Error!");
 			logger.debug("Login error");
 			return "login";
 		}
 
-	}
-	@RequestMapping("/views/crowdhome/crowdhome.do")
-	public String crowdhome(){
-		logger.debug("how show the projects home page");
-		return "crowdhome";
 	}
 
 }
