@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.springmvclearn.dao.impl.UserDaoImpl;
@@ -28,20 +29,23 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class UserController {
 	private static Logger logger = Logger.getLogger(UserController.class);
-	
-	@Resource
 	private UserManager um;
-	@Resource
 	private ProjectManager pm;
 
 	public UserManager getUm() {
 		return um;
 	}
-
+	@Resource
 	public void setUm(UserManager um) {
 		this.um = um;
 	}
-
+	public ProjectManager getPm() {
+		return pm;
+	}
+	@Resource
+	public void setPm(ProjectManager pm) {
+		this.pm = pm;
+	}
 	@RequestMapping("/views/register/register.do")
 	public String userRegister(String userName, String password, String password2) {
 		System.out.println("User controller was called");
@@ -59,6 +63,7 @@ public class UserController {
 	}
 
 	@RequestMapping("/views/login/login.do")
+
 	public String userLogin(String userName, String password) {
 		User user = new User();
 		user.setUserName(userName);
@@ -83,11 +88,5 @@ public class UserController {
 		return "crowdhome";
 	}
 
-	public ProjectManager getPm() {
-		return pm;
-	}
 
-	public void setPm(ProjectManager pm) {
-		this.pm = pm;
-	}
 }

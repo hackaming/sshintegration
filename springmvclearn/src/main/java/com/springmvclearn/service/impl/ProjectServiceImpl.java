@@ -9,13 +9,22 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.springmvclearn.dao.ProjectDao;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.service.ProjectManager;
 @Transactional
 @Service("ProjectManager")
 public class ProjectServiceImpl implements ProjectManager {
+	public ProjectDao getProjectdao() {
+		return projectdao;
+	}
+
+	public void setProjectdao(ProjectDao projectdao) {
+		this.projectdao = projectdao;
+	}
+
 	@Resource
-	private ProjectManager projectmanager;
+	private ProjectDao projectdao;
 
 	@Override
 	public void addProject(Project project) {
@@ -38,7 +47,7 @@ public class ProjectServiceImpl implements ProjectManager {
 	@Override
 	public List<Project> findAll() {
 		List<Project> ls = new ArrayList<Project>();
-		ls = (ArrayList<Project>) projectmanager.findAll();
+		ls = (ArrayList<Project>) projectdao.findAll();
 		return ls;
 	}
 
@@ -48,12 +57,6 @@ public class ProjectServiceImpl implements ProjectManager {
 		return null;
 	}
 
-	public ProjectManager getProjectmanager() {
-		return projectmanager;
-	}
 
-	public void setProjectmanager(ProjectManager projectmanager) {
-		this.projectmanager = projectmanager;
-	}
 
 }
