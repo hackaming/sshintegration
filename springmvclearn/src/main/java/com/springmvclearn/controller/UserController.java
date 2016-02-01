@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -25,6 +26,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 
 @Controller
 public class UserController {
@@ -46,7 +48,7 @@ public class UserController {
 	public void setPm(ProjectManager pm) {
 		this.pm = pm;
 	}
-	@RequestMapping("/register/register.do")
+	@RequestMapping("/register.do")
 	public String userRegister(String userName, String password, String password2) {
 		System.out.println("User controller was called");
 		User user = new User();
@@ -62,14 +64,15 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping("/login/login.do")
-	public String userLogin(String userName, String password) {
+	@RequestMapping("/login.do")
+	public String userLogin(String userName, String password,HttpServletRequest request) {
 		User user = new User();
 		user.setUserName(userName);
 		user.setPassword(password);
 		if (um.loginUser(user)) {
 			System.out.println("Login success!");
 			logger.debug("Login success!");
+			request.getSession().setAttribute("User", user);
 			return "/views/crowdhome/crowdhome";
 		} else {
 			System.out.println("Login Error!");
@@ -78,7 +81,7 @@ public class UserController {
 		}
 
 	}
-	@RequestMapping("/crowdhome/crowdhome.do")
+	@RequestMapping("/crowdhome.do")
 	public String crowdhome(ModelAndView m){
 		List<Project> ls = new ArrayList<Project> ();
 		ls = pm.findAll();
