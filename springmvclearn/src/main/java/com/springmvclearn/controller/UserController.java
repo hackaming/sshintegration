@@ -46,7 +46,7 @@ public class UserController {
 	public void setPm(ProjectManager pm) {
 		this.pm = pm;
 	}
-	@RequestMapping("/views/register/register.do")
+	@RequestMapping("/register/register.do")
 	public String userRegister(String userName, String password, String password2) {
 		System.out.println("User controller was called");
 		User user = new User();
@@ -62,8 +62,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping("/views/login/login.do")
-
+	@RequestMapping("/login/login.do")
 	public String userLogin(String userName, String password) {
 		User user = new User();
 		user.setUserName(userName);
@@ -75,17 +74,17 @@ public class UserController {
 		} else {
 			System.out.println("Login Error!");
 			logger.debug("Login error");
-			return "login";
+			return "/views/login/login";
 		}
 
 	}
-	@RequestMapping("/views/crowdhome/crowdhome.do")
+	@RequestMapping("/crowdhome/crowdhome.do")
 	public String crowdhome(ModelAndView m){
 		List<Project> ls = new ArrayList<Project> ();
 		ls = pm.findAll();
 		logger.debug("how show the projects home page");
 		m.addObject(ls);
-		return "crowdhome";
+		return "/views/crowdhome/crowdhome";
 	}
 
 
