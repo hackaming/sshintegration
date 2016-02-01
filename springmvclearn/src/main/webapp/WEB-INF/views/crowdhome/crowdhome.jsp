@@ -8,11 +8,8 @@
 </head>
 
 <body>
-<form action="crowdhome.do" method = "post">
-<input type="submit" value="╪сть" />
-</form>
-</script>
-	<table>
+
+<table>
  <tr>
 <th>id</th>
 <th>projectName</th>
