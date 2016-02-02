@@ -15,10 +15,11 @@ public class Authority implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
-		HttpSession s = request.getSession(); //Check if the sess's exists
-		User u = (User) s.getAttribute("User");
+		logger.debug("Intercepted.....executing!");
+		User u = (User) request.getSession().getAttribute("User");
 logger.debug("The login.jsp's intercepted.....");
+System.out.println("The session in authority is:" + request.getSession());
+System.out.println("Now the value of user in session in authority interceptor is:" + request.getSession().getAttribute("User"));
 System.out.println("The user in sesion is:" + u);
 		if (null == u){
 			request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
