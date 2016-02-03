@@ -14,6 +14,11 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>ejb3-persistence</artifactId>
+			<version>1.0.2.GA</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -32,11 +37,6 @@
 			<version>3.0.0.RELEASE</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>ejb3-persistence</artifactId>
-			<version>1.0.2.GA</version>
-		</dependency>
 
    <dependency>
       <groupId>org.springframework</groupId>
