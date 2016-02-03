@@ -1,4 +1,4 @@
-/*package com.springmvclearn.controller;
+package com.springmvclearn.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -30,4 +30,3 @@ public class MyAjaxController {
 	}
 	
 }
-*/

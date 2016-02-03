@@ -15,7 +15,7 @@ public class Authority implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.debug("Intercepted.....executing!");
+		
 		User u = (User) request.getSession().getAttribute("User");
 logger.debug("The login.jsp's intercepted.....");
 System.out.println("The session in authority is:" + request.getSession());

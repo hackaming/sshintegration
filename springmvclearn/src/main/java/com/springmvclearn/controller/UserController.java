@@ -51,9 +51,6 @@ public class UserController {
 	@RequestMapping("/register.do")
 	public String userRegister(String userName, String password, String password2) {
 		System.out.println("User controller was called");
-		if (null == userName || null == password){
-			return "/views/register/register";
-		}
 		User user = new User();
 		if (!password.equals(password2)) {
 			System.out.println("The password are not idential!");
@@ -63,7 +60,7 @@ public class UserController {
 			user.setPassword(password);
 			user.setUserName(userName);
 			um.saveUser(user);
-			return "redirect:/login.do";
+			return "redirect:/views/login/login.jsp";
 		}
 	}
 

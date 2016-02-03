@@ -15,8 +15,7 @@ http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
 http://www.springframework.org/schema/aop 
 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
 http://www.springframework.org/schema/mvc
-http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-
+http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 ">
 
 	<context:component-scan base-package="com.springmvclearn.controller" />
@@ -34,14 +33,11 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		<property name="prefix" value="/WEB-INF" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-
+	
 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/WEB-INF/views/login/*.jsp" />
-			<mvc:mapping path="/WEB-INF/views/crowdhome/*.jsp" />
-			<mvc:mapping path="/crowdhome.do" />	
-			<mvc:exclude-mapping path="/register.do" /> 		
-			<bean class="com.springmvclearn.interceptor.Authority"></bean>
+	<mvc:interceptor>
+	<mvc:mapping path="/*.jsp" />
+		<bean class="com.springmvclearn.interceptor.Authority"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
