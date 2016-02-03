@@ -13,7 +13,7 @@
 <body>
 	<table>
  <tr>
-<th>id</th>
+
 <th>projectName</th>
 <th>expectedAnnualRateOfReturn</th>
 <th>holdingPeriod</th>
@@ -22,26 +22,27 @@
 <th>crowdStatus</th>
   </tr>
     	<%
-		//get the projects list
-//		System.out.println("Now begin in crowdhome.jsp, check if the projects is in session. the projects in session is:" + session.getAttribute("Projects"));
-		List projects = (ArrayList<Project>) session
-				.getAttribute("Projects");
-		Iterator p = projects.iterator();
-		while (p.hasNext()) {
-			Project project = (Project) p.next();
-	%>
+    		//get the projects list
+    		//		System.out.println("Now begin in crowdhome.jsp, check if the projects is in session. the projects in session is:" + session.getAttribute("Projects"));
+    		List projects = (ArrayList<Project>) request.getAttribute("Projects");
+    		Iterator p = projects.iterator();
+    		while (p.hasNext()) {
+    			Project project = (Project) p.next();
+    	%>
   <tr>
-    <td><%= project.getId()  %></td>
     <td><%= project.getProjectName() %> </td>
     <td><%= project.getExpectedAnnualRateOfReturn() %></td>
     <td><%= project.getHoldingPeriod() %></td>
     <td><%= project.getPurchaseAmount() %></td>
     <td><%= project.getCrowdingProgress() %></td>
     <td><%= project.getCrowdStatus() %></td>
-    <td><a href = "/buy.do?id=<%=project.getId() %>" >Buy</a></td>
+    <td><a href = "<%= request.getContextPath() %>/buy.do?id=<%=project.getId() %>" >Buy</a></td>
   </tr>
   	<% } %>
 	</table>
-
+<%= request.getRequestURL() %><br>
+<%= request.getRequestURI() %><br>
+<%= request.getContextPath() %><br>
+<%= request.getServletPath() %><br>
 </body>
 </html>

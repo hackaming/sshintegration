@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -88,12 +89,12 @@ public class UserController {
 
 	}
 	@RequestMapping("/crowdhome.do")
-	public String crowdhome(ModelAndView m, HttpServletRequest request){
+	public String crowdhome(ModelMap m){
 		List<Project> ls = new ArrayList<Project> ();
 		logger.debug("Now begin to call the findall, the pm value is:" + pm);
 		ls = pm.findAll();
-		request.getSession().setAttribute("Projects", ls);
-		System.out.println("from crowdhome in user controller, Now set the found projects into session" + request.getSession().getAttribute("Projects") );
+/*		request.getSession().setAttribute("Projects", ls);
+		System.out.println("from crowdhome in user controller, Now set the found projects into session" + request.getSession().getAttribute("Projects") );*/
 		logger.debug("how show the projects home page");
 		//debug
 /*		Iterator iter = ls.iterator();
@@ -101,8 +102,16 @@ public class UserController {
 			Project p = (Project) iter.next();
 			System.out.println(p.getProjectName());
 		}*/
-//		m.addObject("Projects", ls);
+		m.put("Projects", ls);
 		return "/views/crowdhome/crowdhome";
+	}
+	@RequestMapping("/buy.do")
+	public String buy(@RequestParam("id") String id){
+		System.out.println("get ID is :" + id);
+		//now get the user from session, generator an order, put it in request,send to mq, then inform to the user 
+		//that the order is being proceed, please wait.
+		//another thread get order from mq and deal with
+		return "/views/order/order";
 	}
 
 
