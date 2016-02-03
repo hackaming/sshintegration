@@ -1,6 +1,7 @@
 package com.springmvclearn.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -51,6 +52,9 @@ public class UserController {
 	@RequestMapping("/register.do")
 	public String userRegister(String userName, String password, String password2) {
 		System.out.println("User controller was called");
+		if (null == userName || null == password){
+			return "/views/register/register";
+		}
 		User user = new User();
 		if (!password.equals(password2)) {
 			System.out.println("The password are not idential!");
@@ -60,7 +64,7 @@ public class UserController {
 			user.setPassword(password);
 			user.setUserName(userName);
 			um.saveUser(user);
-			return "redirect:/views/login/login.jsp";
+			return "redirect:/login.do";
 		}
 	}
 
@@ -75,7 +79,7 @@ public class UserController {
 			request.getSession().setAttribute("User", user);
 			System.out.println("The session in userlogin is:" + request.getSession());
 			System.out.println("Now the value of user in session in userlogin is:" + request.getSession().getAttribute("User"));
-			return "/views/crowdhome/crowdhome";
+			return "redirect:/crowdhome.do";
 		} else {
 			System.out.println("Login Error!");
 			logger.debug("Login error");
@@ -84,11 +88,20 @@ public class UserController {
 
 	}
 	@RequestMapping("/crowdhome.do")
-	public String crowdhome(ModelAndView m){
+	public String crowdhome(ModelAndView m, HttpServletRequest request){
 		List<Project> ls = new ArrayList<Project> ();
+		logger.debug("Now begin to call the findall, the pm value is:" + pm);
 		ls = pm.findAll();
+		request.getSession().setAttribute("Projects", ls);
+		System.out.println("from crowdhome in user controller, Now set the found projects into session" + request.getSession().getAttribute("Projects") );
 		logger.debug("how show the projects home page");
-		m.addObject(ls);
+		//debug
+/*		Iterator iter = ls.iterator();
+		while (iter.hasNext()){
+			Project p = (Project) iter.next();
+			System.out.println(p.getProjectName());
+		}*/
+//		m.addObject("Projects", ls);
 		return "/views/crowdhome/crowdhome";
 	}
 
