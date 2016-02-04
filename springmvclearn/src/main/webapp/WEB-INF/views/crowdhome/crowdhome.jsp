@@ -36,7 +36,7 @@
     <td><%= project.getPurchaseAmount() %></td>
     <td><%= project.getCrowdingProgress() %></td>
     <td><%= project.getCrowdStatus() %></td>
-    <td><a href = "<%= request.getContextPath() %>/buy.do?id=<%=project.getId() %>" >Buy</a></td>
+    <td><a href = "<%= request.getContextPath() %>/projectdetail.do?id=<%=project.getId() %>" >Buy</a></td>
   </tr>
   	<% } %>
 	</table>

@@ -41,7 +41,8 @@ public class ProjectDaoImpl implements ProjectDao {
 
 	@Override
 	public Project findById(int id) { //may need to change to a list becuase the return type is a list
-		return (Project) hibernatetemplate.find("from Project where id="+"'"+id+"'");
+		return (Project)hibernatetemplate.find("from Project where id="+"'"+id+"'").get(0);
+		
 	}
 
 	public HibernateTemplate getHibernatetemplate() {

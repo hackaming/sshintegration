@@ -53,8 +53,7 @@ public class ProjectServiceImpl implements ProjectManager {
 
 	@Override
 	public Project findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return projectdao.findById(id);
 	}
 
 

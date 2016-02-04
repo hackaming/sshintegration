@@ -105,13 +105,21 @@ public class UserController {
 		m.put("Projects", ls);
 		return "/views/crowdhome/crowdhome";
 	}
-	@RequestMapping("/buy.do")
-	public String buy(@RequestParam("id") String id){
+	@RequestMapping("/projectdetail.do")
+	public String projectdetail(@RequestParam("id") String id,ModelMap m){
 		System.out.println("get ID is :" + id);
 		//now get the user from session, generator an order, put it in request,send to mq, then inform to the user 
 		//that the order is being proceed, please wait.
 		//another thread get order from mq and deal with
-		return "/views/order/order";
+		Project project =(Project) pm.findById(Integer.parseInt(id));
+		m.put("Project", project);
+		System.out.println("Now put the project object into model map in projectdetail user controller:" + project);
+		return "/views/order/projectdetail";
+	}
+	@RequestMapping("/buy.do")
+	public String order(@RequestParam("amount") int amount){
+		//send the request to MQ
+		return null;
 	}
 
 
