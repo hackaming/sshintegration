@@ -1,11 +1,13 @@
 package com.springmvclearn.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Project {
+public class Project implements Serializable {
 	private int id;
 	private String projectName;
 	private float expectedAnnualRateOfReturn;
