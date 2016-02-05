@@ -26,3 +26,8 @@ CREATE TABLE `springmvclearn`.`user` (
 	PRIMARY KEY (`id`)
 );
 
+
+
+create table orders (id int primary key auto_increment, userid int,projec
+tid int,purchaseamount int,FOREIGN KEY (userid) REFERENCES user(id), FOREIGN KEY
+ (projectid) REFERENCES project(id));

@@ -19,7 +19,8 @@
 			<mvc:mapping path="/WEB-INF/views/crowdhome/*.jsp" />
 			<mvc:mapping path="/crowdhome.do" />	
 			<!-- <mvc:exclude-mapping path="/register.do"/> --> 		
-			<bean class="com.springmvclearn.interceptor.Authority" />
+<!-- 			<bean class="com.springmvclearn.interceptor.Authority" /> -->
+			<bean class="com.springmvclearn.interceptor.TestInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 		

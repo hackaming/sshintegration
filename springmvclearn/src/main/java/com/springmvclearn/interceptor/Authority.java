@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springmvclearn.model.User;
 
 public class Authority implements HandlerInterceptor {
+
 	public Authority() {
 		System.out.println("Interceptor was initialized");
 	}
@@ -29,11 +30,10 @@ public class Authority implements HandlerInterceptor {
 		System.out.println("The user in sesion is:" + u);
 		if (null == u) {
 			request.getRequestDispatcher("/WEB-INF/views/login/login.jsp").forward(request, response);
+			return false;
 		} else {
 			return true;
 		}
-
-		return false;
 	}
 
 	@Override
