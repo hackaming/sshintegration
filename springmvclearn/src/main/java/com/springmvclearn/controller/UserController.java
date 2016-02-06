@@ -18,6 +18,8 @@ import com.springmvclearn.dao.impl.UserDaoImpl;
 import com.springmvclearn.model.Orders;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.model.User;
+import com.springmvclearn.order.OrderProcessingByRabbitMQ;
+import com.springmvclearn.order.OrderProduceToRabbitMQ;
 import com.springmvclearn.service.OrdersManager;
 import com.springmvclearn.service.ProjectManager;
 import com.springmvclearn.service.UserManager;
@@ -33,7 +35,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 
 @Controller
-public class UserController {
+public class UserController  {
 	private static Logger logger = Logger.getLogger(UserController.class);
 	private UserManager um;
 	private ProjectManager pm;
@@ -130,25 +132,32 @@ public class UserController {
 	}
 	
 	@RequestMapping("/buy.do")
-	public String order(@RequestParam("amount") int amount,@RequestParam("projectid") int projectid,HttpServletRequest request){
+	public String order(@RequestParam("amount") int amount,@RequestParam("projectid") int projectid,HttpServletRequest request) throws Exception {
 		System.out.println("now get amount and id from projectdetail.jsp the value is:"+amount+projectid);
 		Orders order = new Orders();
 		order.setProjectid(projectid);
 		order.setPurchaseamount(amount);
 		User u = (User)request.getSession().getAttribute("User");
 		order.setUserid(u.getId());
-		om.saveOrders(order);
-		return "redirect:/ordercenter.do";
+		// om.saveOrders(order); do not save it in db first, just send to the server.
+		OrderProduceToRabbitMQ ortrm = new OrderProduceToRabbitMQ();
+		ortrm.sendToServer(order); //send to the server after sent, forward to pay...
+		//return "redirect:/ordercenter.do";
+		return "redirect:/pay.do";
 	}
 	@RequestMapping("ordercenter.do")
 	public String getorder(HttpServletRequest request,ModelMap m){
 		User u = (User) request.getSession().getAttribute("User");
 		ArrayList<Orders> o = (ArrayList<Orders>)om.findById(u.getId());
 		m.put("Orders", o);
+		
 		return "/views/order/ordercenter";
 	}
 	@RequestMapping("pay.do")
-	public String pay(){
-	return "/views/order/pay";	
+	public String pay() throws Exception{
+		OrderProcessingByRabbitMQ opbrm = new OrderProcessingByRabbitMQ();
+		opbrm.getFromServer();
+		opbrm.getFromServer();
+		return "/views/order/pay";	
 	}
 }

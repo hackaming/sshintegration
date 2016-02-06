@@ -17,7 +17,7 @@ public class Send {
 	  public static void main(String[] argv)  throws java.io.IOException {
 		    ConnectionFactory factory = new ConnectionFactory();
 		    try {
-				factory.setUri("amqp://test:password@10.184.186.243:5672/%2F");
+				factory.setUri("amqp://test:password@localhost:5672/%2F");
 			} catch (KeyManagementException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

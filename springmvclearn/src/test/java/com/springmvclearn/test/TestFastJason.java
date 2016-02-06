@@ -18,11 +18,13 @@ public class TestFastJason {
       
     SerializerFeature feature = SerializerFeature.DisableCircularReferenceDetect;  
   
-    byte[] bytes = JSON.toJSONBytes(maps,feature);  
+    String jsonStrng  = JSON.toJSONString(s1);  
     
   
-    System.out.println(new String(bytes));
-    
+    System.out.println(new String(jsonStrng ));
+    Student student = JSON.parseObject(jsonStrng ,Student.class);
+    System.out.println(student.getAge());
+    System.out.println(student.getName());
     //Student s = JSON.toJavaObject(bytes, Student.class);
     
     
@@ -30,6 +32,10 @@ public class TestFastJason {
 }  
 
 class Student{
+	public Student() {
+
+		// TODO Auto-generated constructor stub
+	}
 	public Student(String name, int age) {
 		super();
 		this.name = name;
