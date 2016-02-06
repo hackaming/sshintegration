@@ -25,6 +25,6 @@ Your order has been dealt with, please pay in time.
 <td><%= o.get(0).getPurchaseamount() %></td>
 </tr>
 </table>
-<a href="<%= request.getRequestURI() %>/pay.do">Pay</a>
+<a href="<%= request.getRequestURI() %>/pay.do">Please pay your order.</a>
 </body>
 </html>

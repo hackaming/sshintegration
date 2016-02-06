@@ -158,6 +158,14 @@
 			<artifactId>spring-rabbit</artifactId>
 			<version>1.5.3.RELEASE</version>
 		</dependency>
+		<dependency>
+	<groupId>com.alibaba</groupId>
+	<artifactId>fastjson</artifactId>
+	<version>1.2.7</version>
+</dependency>
+		
+		
+		
 	</dependencies>
 	<build>
 		<finalName>com.springmvclearn</finalName>
