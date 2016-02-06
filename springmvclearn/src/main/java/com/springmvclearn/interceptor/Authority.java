@@ -23,7 +23,7 @@ public class Authority implements HandlerInterceptor {
 			throws Exception {
 		logger.debug("Intercepted.....executing!");
 		User u = (User) request.getSession().getAttribute("User");
-		logger.debug("The login.jsp's intercepted.....");
+		logger.debug("Authority interceptor is beging to check the session.....");
 		System.out.println("The session in authority is:" + request.getSession());
 		System.out.println("Now the value of user in session in authority interceptor is:"
 				+ request.getSession().getAttribute("User"));
