@@ -15,6 +15,10 @@ import com.springmvclearn.service.ProjectManager;
 @Transactional
 @Service("ProjectManager")
 public class ProjectServiceImpl implements ProjectManager {
+
+	@Resource
+	private ProjectDao projectdao;
+	
 	public ProjectDao getProjectdao() {
 		return projectdao;
 	}
@@ -22,9 +26,6 @@ public class ProjectServiceImpl implements ProjectManager {
 	public void setProjectdao(ProjectDao projectdao) {
 		this.projectdao = projectdao;
 	}
-
-	@Resource
-	private ProjectDao projectdao;
 
 	@Override
 	public void addProject(Project project) {

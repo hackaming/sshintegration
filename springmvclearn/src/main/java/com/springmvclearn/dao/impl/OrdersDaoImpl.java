@@ -25,8 +25,9 @@ public class OrdersDaoImpl implements OrdersDao {
 
 	@Override
 	public void saveOrders(Orders order) {
+		System.out.println("Now in ordersDaoImpl, call hibernatetemplate.save to save the order into DB");
 		hibernatetemplate.save(order);
-
+		System.out.println("hibernatetemplate.save called finished, the order's been saved into db.");
 	}
 
 	@Override
