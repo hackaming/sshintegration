@@ -5,7 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.springmvclearn.model.Orders;
 
-public class OrderProduceToRabbitMQ {
+public class OrderProduceAndSendToRabbitMQ {
 	private final static String QUEUE_NAME = "hello";
 
 	public boolean sendToServer(Orders order) throws Exception {

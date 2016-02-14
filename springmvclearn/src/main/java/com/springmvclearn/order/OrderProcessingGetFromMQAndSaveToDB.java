@@ -19,7 +19,7 @@ import com.springmvclearn.model.Orders;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.service.OrdersManager;
 
-public class OrderProcessingByRabbitMQ {
+public class OrderProcessingGetFromMQAndSaveToDB {
 	private final static String QUEUE_NAME = "hello";
 	private OrdersManager om;
 

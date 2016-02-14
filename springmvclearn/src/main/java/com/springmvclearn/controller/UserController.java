@@ -18,8 +18,8 @@ import com.springmvclearn.dao.impl.UserDaoImpl;
 import com.springmvclearn.model.Orders;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.model.User;
-import com.springmvclearn.order.OrderProcessingByRabbitMQ;
-import com.springmvclearn.order.OrderProduceToRabbitMQ;
+import com.springmvclearn.order.OrderProcessingGetFromMQAndSaveToDB;
+import com.springmvclearn.order.OrderProduceAndSendToRabbitMQ;
 import com.springmvclearn.service.OrdersManager;
 import com.springmvclearn.service.ProjectManager;
 import com.springmvclearn.service.UserManager;
@@ -140,7 +140,7 @@ public class UserController  {
 		User u = (User)request.getSession().getAttribute("User");
 		order.setUserid(u.getId());
 		// om.saveOrders(order); do not save it in db first, just send to the server.
-		OrderProduceToRabbitMQ ortrm = new OrderProduceToRabbitMQ();
+		OrderProduceAndSendToRabbitMQ ortrm = new OrderProduceAndSendToRabbitMQ();
 		ortrm.sendToServer(order); //send to the server after sent, forward to pay...
 		//return "redirect:/ordercenter.do";
 		return "redirect:/pay.do";
@@ -155,9 +155,9 @@ public class UserController  {
 	}
 	@RequestMapping("pay.do")
 	public String pay() throws Exception{
-		OrderProcessingByRabbitMQ opbrm = new OrderProcessingByRabbitMQ();
+		OrderProcessingGetFromMQAndSaveToDB opbrm = new OrderProcessingGetFromMQAndSaveToDB();
 		opbrm.getFromServer();
-		opbrm.getFromServer();
+		//opbrm.getFromServer();
 		return "/views/order/pay";	
 	}
 }
