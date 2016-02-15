@@ -8,14 +8,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<%
+<%-- <%
 ArrayList<Orders> o = (ArrayList<Orders>) request.getSession().getAttribute("Orders");
-%>
+%> --%>
 
 <body>
-Now begin to pay!
+Now begin to pay, need to call the 3rd interfaces!
 
-The order id is:<%= o.get(0).getId() %>>
+<%-- The order id is:<%= o.get(0).getId() %>> --%>
 </body>
 </html>
 

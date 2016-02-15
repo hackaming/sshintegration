@@ -1,5 +1,6 @@
 package com.springmvclearn.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,12 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
 import com.springmvclearn.dao.impl.UserDaoImpl;
 import com.springmvclearn.model.Orders;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.model.User;
 import com.springmvclearn.order.OrderProcessingGetFromMQAndSaveToDB;
 import com.springmvclearn.order.OrderProduceAndSendToRabbitMQ;
+import com.springmvclearn.order.OrderSerialize;
 import com.springmvclearn.service.OrdersManager;
 import com.springmvclearn.service.ProjectManager;
 import com.springmvclearn.service.UserManager;
@@ -37,6 +46,7 @@ import org.springframework.ui.ModelMap;
 @Controller
 public class UserController  {
 	private static Logger logger = Logger.getLogger(UserController.class);
+	private final static String QUEUE_NAME = "hello";
 	private UserManager um;
 	private ProjectManager pm;
 	private OrdersManager om;
@@ -140,9 +150,12 @@ public class UserController  {
 		User u = (User)request.getSession().getAttribute("User");
 		order.setUserid(u.getId());
 		// om.saveOrders(order); do not save it in db first, just send to the server.
+		System.out.println("Now begin to new a OrderProduceAndSendToRabbitMQ, and call the method to send data to the server");
 		OrderProduceAndSendToRabbitMQ ortrm = new OrderProduceAndSendToRabbitMQ();
+		System.out.println("now call the sendtoserver to send to the server");
 		ortrm.sendToServer(order); //send to the server after sent, forward to pay...
 		//return "redirect:/ordercenter.do";
+		System.out.println("Now return, redirect to pay.do");
 		return "redirect:/pay.do";
 	}
 	@RequestMapping("ordercenter.do")
@@ -155,9 +168,18 @@ public class UserController  {
 	}
 	@RequestMapping("pay.do")
 	public String pay() throws Exception{
+/*		System.out.println("Now new a OrderProcessingGetFromMQAndSaveToDB in pay.do");
 		OrderProcessingGetFromMQAndSaveToDB opbrm = new OrderProcessingGetFromMQAndSaveToDB();
-		opbrm.getFromServer();
+		System.out.println("Now call the getFromServer which will get from mq and save it into DB");
+		opbrm.getFromServer();*/
 		//opbrm.getFromServer();
+		logger.debug("Now commented the old code which will new a new class. Now we put the get order from mq and save it into DB code in usercontroller because the injection has always been failured.");
 		return "/views/order/pay";	
+	}
+	public UserController() throws Exception{
+/*		logger.debug("Now the Controller's initialized, begin to call the getFromServer, it will wait for any request and save it into db.");
+		getFromServer();
+		*/
+		//put these cldes in another seperated project named processorder
 	}
 }

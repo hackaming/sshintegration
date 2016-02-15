@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
@@ -22,36 +24,47 @@ import com.springmvclearn.dao.OrdersDao;
 import com.springmvclearn.model.Orders;
 import com.springmvclearn.model.Project;
 import com.springmvclearn.service.OrdersManager;
+import com.springmvclearn.service.ProjectManager;
+import com.springmvclearn.service.UserManager;
 
+@Component
 public class OrderProcessingGetFromMQAndSaveToDB {
 	private final static String QUEUE_NAME = "hello";
-	@Resource
+	private UserManager um;
+	private ProjectManager pm;
 	private OrdersManager om;
+
 	@Resource
-	private static OrdersDao od;
-
-	public OrdersDao getOd() {
-		return od;
+	public void setOm(OrdersManager om) {
+		this.om = om;
 	}
-
-	public void setOd(OrdersDao od) {
-		this.od = od;
-	}
-
 	public OrdersManager getOm() {
 		return om;
 	}
 
-	public void setOm(OrdersManager om) {
-		this.om = om;
+	public UserManager getUm() {
+		return um;
 	}
-public void test(){
-	ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+	@Resource
+	public void setUm(UserManager um) {
+		this.um = um;
+	}
+	public ProjectManager getPm() {
+		return pm;
+	}
+	@Resource
+	public void setPm(ProjectManager pm) {
+		this.pm = pm;
+	}
+	
+	
+public void testbeans(){
+	ApplicationContext ctx = new ClassPathXmlApplicationContext("/WEB-INF/beans.xml");
 	System.out.println("We have these beans:"+ctx.getBeanDefinitionNames());
 }
 	public void getFromServer() throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setUri("amqp://test:password@localhost:5672/%2F");
+		factory.setUri("amqp://test:password@10.184.186.243:5672/%2F");
 		Connection connection = factory.newConnection();
 		Channel channel = connection.createChannel();
 
@@ -67,12 +80,13 @@ public void test(){
 				OrderSerialize os = new OrderSerialize();
 				Orders order = os.StringToOrder(orderString);
 				System.out.println("Now we get the order:" + order + "now save it into db");
-				//test();
-				if (null == od) {
-					System.out.println("The injected orderDAO is null, exception shows, the order has not been saved into DB ");
+				System.out.println("Now call test beans to check what benas we have in spring");;
+				//testbeans();
+				if (null == om) {
+					System.out.println("The injected Ordersmanager is null, exception shows, the order has not been saved into DB ");
 					return;
 				} else {
-					od.saveOrders(order);
+					om.saveOrders(order);
 				}
 			}
 		};

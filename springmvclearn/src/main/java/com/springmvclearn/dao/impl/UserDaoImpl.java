@@ -68,6 +68,7 @@ public class UserDaoImpl implements UserDao {
 		List<User> ls = new ArrayList<User>();
 		ls =(ArrayList<User>) hibernateTemplate.find("from User where username=" +"'"+user.getUserName()+"'" + " and password="+"'"+user.getPassword()+"'");
 		if (ls.size()>0){
+			user.setId(ls.get(0).getId());
 			return true;
 		} else{
 			return false;

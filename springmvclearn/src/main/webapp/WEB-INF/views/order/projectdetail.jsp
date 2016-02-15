@@ -15,7 +15,7 @@
 		System.out.println(project.getCrowdingProgress());
 		System.out.println(project.getProjectName());
 	%>
-	<form action="buy.do" method="post">
+	<form action="buy.do" method="post" >
 		<table>
 			<th>Project Name</th>
 			<th>Purchase Amount</th>
@@ -32,9 +32,9 @@
 				<td><%=project.getCrowdingProgress()%></td>
 			</tr>
 		</table>
-		购买数量<input type="text" name="amount" /><br> <input type="hidden"
-			name="projectid" value="<%=project.getId()%>"> <input
-			type="submit" value="下单" />
+		购买数量<input type="text" name="amount" /><br> 
+		<input type="hidden" name="projectid" value="<%=project.getId()%>"> 
+		<input type="submit" value="下单" onClick="alert('你的订单已经被提交！更好的在后台接受处理,您也可以到未完成订单里面查看详情!')" />
 	</form>
 </body>
 </html>

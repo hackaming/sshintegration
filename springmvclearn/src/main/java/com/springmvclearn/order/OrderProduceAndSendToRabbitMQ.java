@@ -11,7 +11,7 @@ public class OrderProduceAndSendToRabbitMQ {
 	public boolean sendToServer(Orders order) throws Exception {
 		ConnectionFactory factory = new ConnectionFactory();
 
-		factory.setUri("amqp://test:password@localhost:5672/%2F");
+		factory.setUri("amqp://test:password@10.184.186.243:5672/%2F");
 
 		Connection connection = null;
 
