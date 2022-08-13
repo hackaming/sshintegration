@@ -9,7 +9,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
-
+// add a test comment here
 public class Recv {
 	private final static String QUEUE_NAME = "hello";
 
@@ -34,5 +34,5 @@ public class Recv {
 	      channel.basicConsume(QUEUE_NAME, true, consumer);
 	    
 	  }
-
+ff 
 }
